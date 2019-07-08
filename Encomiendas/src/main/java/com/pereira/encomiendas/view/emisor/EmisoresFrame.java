@@ -1,11 +1,7 @@
 package com.pereira.encomiendas.view.emisor;
 
-import com.pereira.encomiendas.beans.EmisorFacade;
 import com.pereira.encomiendas.controller.EmisorController;
-import com.pereira.encomiendas.model.Emisor;
-import com.pereira.encomiendas.view.emisor.Create;
 import com.pereira.encomiendas.view.tablemodels.EmisoresTableModel;
-import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -67,6 +63,7 @@ public class EmisoresFrame extends javax.swing.JInternalFrame {
             public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
             }
         });
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -267,6 +264,10 @@ public class EmisoresFrame extends javax.swing.JInternalFrame {
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         recargarTabla();
     }//GEN-LAST:event_formInternalFrameActivated
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formInternalFrameOpened
 
     public static EmisoresFrame getFrame() {
         return FRAME;

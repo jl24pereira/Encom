@@ -55,7 +55,7 @@ public class Salida implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    @OneToMany(mappedBy = "salida",cascade = {CascadeType.PERSIST},fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "salida",cascade = {CascadeType.PERSIST},fetch = FetchType.LAZY)
     private List<Orden> ordenList;
 
     public Salida() {

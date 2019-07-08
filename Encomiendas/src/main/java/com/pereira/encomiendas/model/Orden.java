@@ -67,7 +67,7 @@ public class Orden implements Serializable {
     @JoinColumn(name = "salida", referencedColumnName = "idsalida")
     @ManyToOne
     private Salida salida;
-    @OneToMany(mappedBy = "orden", cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "orden", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private List<Paquete> paqueteList;
 
     public Orden() {

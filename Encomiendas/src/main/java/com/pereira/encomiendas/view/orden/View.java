@@ -286,10 +286,10 @@ public class View extends javax.swing.JDialog {
         this.txtReceptor.setText(controller.getSeleccionado().getReceptor().getNombres()+" "+controller.getSeleccionado().getReceptor().getApellidos());
         this.txtViaje.setText(controller.getSeleccionado().getSalida().toString());
         this.txtCosto.setText("$ "+controller.getSeleccionado().getCosto());
-        this.txtPeso.setText(controller.getSeleccionado().getPeso()+" LB");        
-        controller.getSeleccionado().getPaqueteList().forEach(paquete->{
-            Object row[] = {paquete.getDescripcion()};
+        this.txtPeso.setText(controller.getSeleccionado().getPeso()+" LB"); 
+        for(int i = 0; i<controller.getSeleccionado().getPaqueteList().size(); i++){
+            Object row[] = {controller.getSeleccionado().getPaqueteList().get(i).getDescripcion()};
             ((DefaultTableModel)tPaquetes.getModel()).addRow(row);
-        });
+        }
     }
 }

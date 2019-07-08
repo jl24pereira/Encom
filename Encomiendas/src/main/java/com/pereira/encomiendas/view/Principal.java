@@ -16,10 +16,10 @@ import javax.swing.JInternalFrame;
 
 public class Principal extends javax.swing.JFrame {
 
-    private final EmisoresFrame frameEmisores;
-    private final ReceptoresFrame frameReceptores;
-    private final SalidasFrame frameSalidas;
-    private final OrdenFrame frameOrdenes;
+    private EmisoresFrame frameEmisores;
+    private ReceptoresFrame frameReceptores;
+    private SalidasFrame frameSalidas;
+    private OrdenFrame frameOrdenes;
 
     public Principal() {
         try {
@@ -32,10 +32,6 @@ public class Principal extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        frameEmisores = EmisoresFrame.getFrame();
-        frameReceptores = ReceptoresFrame.getFrame();
-        frameSalidas = SalidasFrame.getFrame();
-        frameOrdenes = OrdenFrame.getFrame();
         initComponents();
     }
 
@@ -186,6 +182,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemEmisoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEmisoresActionPerformed
+        frameEmisores = EmisoresFrame.getFrame();
         if (frameEmisores != null) {
             if (frameEmisores.isIcon()) {
                 restaurarFrame(frameEmisores);
@@ -199,6 +196,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemEmisoresActionPerformed
 
     private void itemReceptoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemReceptoresActionPerformed
+        frameReceptores = ReceptoresFrame.getFrame();
         if (frameReceptores != null) {
             if (frameReceptores.isIcon()) {
                 restaurarFrame(frameReceptores);
@@ -212,6 +210,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemReceptoresActionPerformed
 
     private void itemSalidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalidasActionPerformed
+        frameSalidas = SalidasFrame.getFrame();
         if (frameSalidas != null) {
             if (frameSalidas.isIcon()) {                
                 restaurarFrame(frameSalidas);
@@ -226,6 +225,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemSalidasActionPerformed
 
     private void itemNuevaSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNuevaSalidaActionPerformed
+        
         SalidaController.getCONTROLLER().prepareCreate();
         com.pereira.encomiendas.view.salida.Create dialog = new com.pereira.encomiendas.view.salida.Create(new JFrame(), true, "AGREGAR SALDIA");
         dialog.setVisible(true);
@@ -238,6 +238,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemNuevaOrdenActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        frameOrdenes = OrdenFrame.getFrame();
         if (frameOrdenes != null) {
             if (frameOrdenes.isIcon()) {                
                 restaurarFrame(frameOrdenes);
