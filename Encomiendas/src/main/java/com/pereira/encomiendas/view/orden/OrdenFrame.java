@@ -4,6 +4,7 @@ import com.pereira.encomiendas.controller.OrdenController;
 import com.pereira.encomiendas.controller.SalidaController;
 import com.pereira.encomiendas.model.Salida;
 import com.pereira.encomiendas.view.tablemodels.OrdenesTableModel;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +12,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import net.sf.jasperreports.engine.JRException;
@@ -23,7 +25,7 @@ public class OrdenFrame extends javax.swing.JInternalFrame {
     TableRowSorter<TableModel> sorter;
 
     private final SalidaController salidaController;
-    private DefaultComboBoxModel<Salida> cbmSalidas = new DefaultComboBoxModel<>();
+    private final DefaultComboBoxModel<Salida> cbmSalidas = new DefaultComboBoxModel<>();
 
     public OrdenFrame() {
         controller = OrdenController.getCONTROLLER();
@@ -45,8 +47,7 @@ public class OrdenFrame extends javax.swing.JInternalFrame {
         panelFiltro = new javax.swing.JPanel();
         cbxFilter = new javax.swing.JComboBox<>();
         txtFilter = new javax.swing.JTextField();
-        cbxViajes = new javax.swing.JComboBox<>();
-        chkViajes = new javax.swing.JCheckBox();
+        btnBuscar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         panelControles = new javax.swing.JPanel();
@@ -54,6 +55,10 @@ public class OrdenFrame extends javax.swing.JInternalFrame {
         btnVer = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        cbxViajes = new javax.swing.JComboBox<>();
+        chkViajes = new javax.swing.JCheckBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
@@ -116,33 +121,22 @@ public class OrdenFrame extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         panelFiltro.add(txtFilter, gridBagConstraints);
 
-        cbxViajes.setModel(cbmSalidas);
-        cbxViajes.setMaximumSize(new java.awt.Dimension(150, 30));
-        cbxViajes.setMinimumSize(new java.awt.Dimension(150, 30));
-        cbxViajes.setPreferredSize(new java.awt.Dimension(150, 30));
-        cbxViajes.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbxViajesItemStateChanged(evt);
+        btnBuscar.setText("BUSCAR");
+        btnBuscar.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnBuscar.setPreferredSize(new java.awt.Dimension(100, 30));
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        panelFiltro.add(cbxViajes, gridBagConstraints);
-
-        chkViajes.setText("Ver Todos los Viajes");
-        chkViajes.setOpaque(false);
-        chkViajes.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                chkViajesItemStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        panelFiltro.add(chkViajes, gridBagConstraints);
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        panelFiltro.add(btnBuscar, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel1.add(panelFiltro, gridBagConstraints);
@@ -156,7 +150,7 @@ public class OrdenFrame extends javax.swing.JInternalFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
@@ -222,11 +216,56 @@ public class OrdenFrame extends javax.swing.JInternalFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel1.add(panelControles, gridBagConstraints);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+
+        jLabel1.setText("PROXIMOS VIAJES:");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabel1.setMaximumSize(new java.awt.Dimension(150, 14));
+        jLabel1.setMinimumSize(new java.awt.Dimension(150, 14));
+        jLabel1.setPreferredSize(new java.awt.Dimension(150, 14));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel2.add(jLabel1, gridBagConstraints);
+
+        cbxViajes.setModel(cbmSalidas);
+        cbxViajes.setMaximumSize(new java.awt.Dimension(175, 30));
+        cbxViajes.setMinimumSize(new java.awt.Dimension(175, 30));
+        cbxViajes.setPreferredSize(new java.awt.Dimension(175, 30));
+        cbxViajes.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxViajesItemStateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel2.add(cbxViajes, gridBagConstraints);
+
+        chkViajes.setText("VER TODOS LOS VIAJES");
+        chkViajes.setOpaque(false);
+        chkViajes.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chkViajesItemStateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel2.add(chkViajes, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel1.add(jPanel2, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -238,7 +277,9 @@ public class OrdenFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtFilterKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFilterKeyReleased
-        filtrar();
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            filtrar();
+        }
     }//GEN-LAST:event_txtFilterKeyReleased
 
     private void cbxFilterItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxFilterItemStateChanged
@@ -293,26 +334,36 @@ public class OrdenFrame extends javax.swing.JInternalFrame {
     private void chkViajesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkViajesItemStateChanged
         if (chkViajes.isSelected()) {
             buscarTodasSalidas();
+            jLabel1.setText("VIAJES: ");
         } else {
             buscarSalidasRecientes();
+            jLabel1.setText("PROXIMOS VIAJES: ");
         }
     }//GEN-LAST:event_chkViajesItemStateChanged
 
     private void cbxViajesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxViajesItemStateChanged
         if (cbxViajes.getItemCount() > 0) {
             buscarPorSalida();
+        } else {
+            tmOrdenes.fireTableRowsDeleted(0, tmOrdenes.getList().size() - 1);
+            tmOrdenes.fireTableDataChanged();
+        }
+        if (cbxViajes.getItemCount() == 0) {
+            for (int i = 0; i < tmOrdenes.getRowCount(); i++) {
+                tmOrdenes.deleteRow(i);
+            }
         }
     }//GEN-LAST:event_cbxViajesItemStateChanged
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-        if(table.getSelectedRow()>-1){
+        if (table.getSelectedRow() > -1) {
             OrdenController.getCONTROLLER().setSeleccionado(tmOrdenes.getRow(table.convertRowIndexToModel(table.getSelectedRow())));
             try {
                 OrdenController.getCONTROLLER().printOrden();
             } catch (JRException | IOException ex) {
                 Logger.getLogger(OrdenFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(new JFrame(),
                     "Seleccione un elemento de la tabla",
                     "ENCOM",
@@ -320,55 +371,22 @@ public class OrdenFrame extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnImprimirActionPerformed
 
-    public static OrdenFrame getFrame() {
-        return FRAME;
-    }
-
-    private void filtrar() {
-        RowFilter<TableModel, Object> rf = null;
-        try {
-            switch (cbxFilter.getSelectedIndex()) {
-                case 1:
-                    rf = RowFilter.regexFilter(txtFilter.getText(), 0);
-                    break;
-                case 2:
-                    rf = RowFilter.regexFilter(txtFilter.getText(), 1);
-                    break;
-                case 3:
-                    rf = RowFilter.regexFilter(txtFilter.getText(), 2);
-                    break;
-                case 4:
-                    rf = RowFilter.regexFilter(txtFilter.getText(), 3);
-                    break;
-                default:
-                    txtFilter.setText("");
-                    break;
-            }
-        } catch (java.util.regex.PatternSyntaxException e) {
-            return;
-        }
-        sorter.setRowFilter(rf);
-    }
-
-    private void recargarTabla() {
-        tmOrdenes.setList(controller.getItems());
-        tmOrdenes.fireTableDataChanged();
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         filtrar();
-    }
-
-    private boolean isSelectedRow() {
-        return table.getSelectedRow() > -1;
-    }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnVer;
     private javax.swing.JComboBox<String> cbxFilter;
     private javax.swing.JComboBox<Salida> cbxViajes;
     private javax.swing.JCheckBox chkViajes;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelControles;
     private javax.swing.JPanel panelFiltro;
@@ -396,5 +414,48 @@ public class OrdenFrame extends javax.swing.JInternalFrame {
         tmOrdenes.setList(controller.getOrdenPorViaje((Salida) cbxViajes.getSelectedItem()));
         tmOrdenes.fireTableDataChanged();
         filtrar();
+    }
+
+    public static OrdenFrame getFrame() {
+        return FRAME;
+    }
+
+    private void filtrar() {
+        if (cbxViajes.getItemCount() > 0) {
+            RowFilter<TableModel, Object> rf = null;
+            try {
+                switch (cbxFilter.getSelectedIndex()) {
+                    case 1:
+                        rf = RowFilter.regexFilter("(?i)"+txtFilter.getText(), 0);
+                        break;
+                    case 2:
+                        rf = RowFilter.regexFilter("(?i)"+txtFilter.getText(), 1);
+                        break;
+                    case 3:
+                        rf = RowFilter.regexFilter("(?i)"+txtFilter.getText(), 2);
+                        break;
+                    case 4:
+                        rf = RowFilter.regexFilter("(?i)"+txtFilter.getText(), 3);
+                        break;
+                    default:
+                        rf = RowFilter.regexFilter("(?i)"+txtFilter.getText());
+                        break;
+                }
+            } catch (java.util.regex.PatternSyntaxException e) {
+                return;
+            }
+            sorter.setRowFilter(rf);
+        }
+    }
+
+    private void recargarTabla() {
+        tmOrdenes.setList(controller.getItems());
+        tmOrdenes.fireTableDataChanged();
+        buscarPorSalida();
+        filtrar();
+    }
+
+    private boolean isSelectedRow() {
+        return table.getSelectedRow() > -1;
     }
 }

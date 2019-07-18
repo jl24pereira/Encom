@@ -247,7 +247,7 @@ public class ReceptoresFrame extends javax.swing.JInternalFrame {
                     "Desea Eliminar Registro?",
                     "ENCOM",
                     JOptionPane.YES_NO_OPTION);
-            if(n==0){
+            if (n == 0) {
                 receptorController.setSeleccionado(tmReceptores.getRow(table.convertRowIndexToModel(table.getSelectedRow())));
                 receptorController.delete();
                 recargarTabla();
@@ -273,19 +273,19 @@ public class ReceptoresFrame extends javax.swing.JInternalFrame {
         try {
             switch (cbxFilter.getSelectedIndex()) {
                 case 1:
-                    rf = RowFilter.regexFilter(txtFilter.getText(), 0);
+                    rf = RowFilter.regexFilter("(?i)" + txtFilter.getText(), 0);
                     break;
                 case 2:
-                    rf = RowFilter.regexFilter(txtFilter.getText(), 1);
+                    rf = RowFilter.regexFilter("(?i)" + txtFilter.getText(), 1);
                     break;
                 case 3:
-                    rf = RowFilter.regexFilter(txtFilter.getText(), 2);
+                    rf = RowFilter.regexFilter("(?i)" + txtFilter.getText(), 2);
                     break;
                 case 4:
-                    rf = RowFilter.regexFilter(txtFilter.getText(), 3);
+                    rf = RowFilter.regexFilter("(?i)" + txtFilter.getText(), 3);
                     break;
                 default:
-                    txtFilter.setText("");
+                    rf = RowFilter.regexFilter("(?i)" + txtFilter.getText());
                     break;
             }
         } catch (java.util.regex.PatternSyntaxException e) {

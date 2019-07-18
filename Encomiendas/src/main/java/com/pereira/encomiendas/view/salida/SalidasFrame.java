@@ -350,19 +350,20 @@ public class SalidasFrame extends javax.swing.JInternalFrame {
         try {
             switch (cbxFilter.getSelectedIndex()) {
                 case 1:
-                    rf = RowFilter.regexFilter(txtFilter.getText(), 0);
+                    rf = RowFilter.regexFilter("(?i)"+txtFilter.getText(), 0);
                     break;
                 case 2:
-                    rf = RowFilter.regexFilter(txtFilter.getText(), 1);
+                    rf = RowFilter.regexFilter("(?i)"+txtFilter.getText(), 1);
                     break;
                 case 3:
-                    rf = RowFilter.regexFilter(txtFilter.getText(), 2);
+                    rf = RowFilter.regexFilter("(?i)"+txtFilter.getText(), 2);
                     break;
                 case 4:
-                    rf = RowFilter.regexFilter(txtFilter.getText(), 3);
+                    rf = RowFilter.regexFilter("(?i)"+txtFilter.getText(), 3);
                     break;
                 default:
-                    txtFilter.setText("");
+                    //txtFilter.setText("");
+                     rf = RowFilter.regexFilter("(?i)"+txtFilter.getText());
                     break;
             }
         } catch (java.util.regex.PatternSyntaxException e) {

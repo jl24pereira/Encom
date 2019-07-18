@@ -839,19 +839,19 @@ public class Create extends javax.swing.JDialog {
         try {
             switch (cbxFilterEmisor.getSelectedIndex()) {
                 case 1:
-                    rf = RowFilter.regexFilter(txtFilterEmisor.getText(), 0);
+                    rf = RowFilter.regexFilter("(?i)" + txtFilterEmisor.getText(), 0);
                     break;
                 case 2:
-                    rf = RowFilter.regexFilter(txtFilterEmisor.getText(), 1);
+                    rf = RowFilter.regexFilter("(?i)" + txtFilterEmisor.getText(), 1);
                     break;
                 case 3:
-                    rf = RowFilter.regexFilter(txtFilterEmisor.getText(), 2);
+                    rf = RowFilter.regexFilter("(?i)" + txtFilterEmisor.getText(), 2);
                     break;
                 case 4:
-                    rf = RowFilter.regexFilter(txtFilterEmisor.getText(), 3);
+                    rf = RowFilter.regexFilter("(?i)" + txtFilterEmisor.getText(), 3);
                     break;
                 default:
-                    txtFilterEmisor.setText("");
+                    rf = RowFilter.regexFilter("(?i)" + txtFilterEmisor.getText());
                     break;
             }
         } catch (java.util.regex.PatternSyntaxException e) {
@@ -879,19 +879,19 @@ public class Create extends javax.swing.JDialog {
         try {
             switch (cbxFilterReceptor.getSelectedIndex()) {
                 case 1:
-                    rf = RowFilter.regexFilter(txtFilterReceptor.getText(), 0);
+                    rf = RowFilter.regexFilter("(?i)" + txtFilterReceptor.getText(), 0);
                     break;
                 case 2:
-                    rf = RowFilter.regexFilter(txtFilterReceptor.getText(), 1);
+                    rf = RowFilter.regexFilter("(?i)" + txtFilterReceptor.getText(), 1);
                     break;
                 case 3:
-                    rf = RowFilter.regexFilter(txtFilterReceptor.getText(), 2);
+                    rf = RowFilter.regexFilter("(?i)" + txtFilterReceptor.getText(), 2);
                     break;
                 case 4:
-                    rf = RowFilter.regexFilter(txtFilterReceptor.getText(), 3);
+                    rf = RowFilter.regexFilter("(?i)" + txtFilterReceptor.getText(), 3);
                     break;
                 default:
-                    txtFilterReceptor.setText("");
+                    rf = RowFilter.regexFilter("(?i)" + txtFilterReceptor.getText());
                     break;
             }
         } catch (java.util.regex.PatternSyntaxException e) {
@@ -946,7 +946,7 @@ public class Create extends javax.swing.JDialog {
             paquetes.add(paquete);
         }
         ordenController.getSeleccionado().setPaqueteList(paquetes);
-        System.out.println("fecha: "+txtFecha.getDate());
+        System.out.println("fecha: " + txtFecha.getDate());
         ordenController.getSeleccionado().setFrecibido(txtFecha.getDate());
         ordenController.getSeleccionado().setSalida((Salida) cbmSalidas.getSelectedItem());
         double peso = (double) txtPeso.getValue();
@@ -1013,6 +1013,6 @@ public class Create extends javax.swing.JDialog {
     }
 
     private void cargarNumeroOrden() {
-        lblOrden.setText(""+ordenController.generarNumero((Salida) cbmSalidas.getSelectedItem()));
+        lblOrden.setText("" + ordenController.generarNumero((Salida) cbmSalidas.getSelectedItem()));
     }
 }
