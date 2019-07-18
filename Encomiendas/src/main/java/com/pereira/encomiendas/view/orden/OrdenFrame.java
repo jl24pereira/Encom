@@ -47,7 +47,6 @@ public class OrdenFrame extends javax.swing.JInternalFrame {
         panelFiltro = new javax.swing.JPanel();
         cbxFilter = new javax.swing.JComboBox<>();
         txtFilter = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         panelControles = new javax.swing.JPanel();
@@ -120,19 +119,6 @@ public class OrdenFrame extends javax.swing.JInternalFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         panelFiltro.add(txtFilter, gridBagConstraints);
-
-        btnBuscar.setText("BUSCAR");
-        btnBuscar.setMinimumSize(new java.awt.Dimension(100, 30));
-        btnBuscar.setPreferredSize(new java.awt.Dimension(100, 30));
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        panelFiltro.add(btnBuscar, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -345,13 +331,7 @@ public class OrdenFrame extends javax.swing.JInternalFrame {
         if (cbxViajes.getItemCount() > 0) {
             buscarPorSalida();
         } else {
-            tmOrdenes.fireTableRowsDeleted(0, tmOrdenes.getList().size() - 1);
-            tmOrdenes.fireTableDataChanged();
-        }
-        if (cbxViajes.getItemCount() == 0) {
-            for (int i = 0; i < tmOrdenes.getRowCount(); i++) {
-                tmOrdenes.deleteRow(i);
-            }
+            tmOrdenes.deleteRows();
         }
     }//GEN-LAST:event_cbxViajesItemStateChanged
 
@@ -371,13 +351,8 @@ public class OrdenFrame extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnImprimirActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        filtrar();
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnVer;
@@ -426,19 +401,19 @@ public class OrdenFrame extends javax.swing.JInternalFrame {
             try {
                 switch (cbxFilter.getSelectedIndex()) {
                     case 1:
-                        rf = RowFilter.regexFilter("(?i)"+txtFilter.getText(), 0);
+                        rf = RowFilter.regexFilter("(?i)" + txtFilter.getText(), 0);
                         break;
                     case 2:
-                        rf = RowFilter.regexFilter("(?i)"+txtFilter.getText(), 1);
+                        rf = RowFilter.regexFilter("(?i)" + txtFilter.getText(), 1);
                         break;
                     case 3:
-                        rf = RowFilter.regexFilter("(?i)"+txtFilter.getText(), 2);
+                        rf = RowFilter.regexFilter("(?i)" + txtFilter.getText(), 2);
                         break;
                     case 4:
-                        rf = RowFilter.regexFilter("(?i)"+txtFilter.getText(), 3);
+                        rf = RowFilter.regexFilter("(?i)" + txtFilter.getText(), 3);
                         break;
                     default:
-                        rf = RowFilter.regexFilter("(?i)"+txtFilter.getText());
+                        rf = RowFilter.regexFilter("(?i)" + txtFilter.getText());
                         break;
                 }
             } catch (java.util.regex.PatternSyntaxException e) {

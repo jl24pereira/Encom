@@ -72,7 +72,7 @@ public class OrdenesTableModel extends AbstractTableModel {
         this.list = list;
     }
     
-    public void deleteRow(int rowIndex){
+    public void deleteRows(){
         getList().clear();
         this.fireTableDataChanged();
     }
