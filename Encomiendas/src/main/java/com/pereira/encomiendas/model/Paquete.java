@@ -36,7 +36,7 @@ public class Paquete implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idpaquete", nullable = false)
-    private Short idpaquete;
+    private Long idpaquete;
     @Size(max = 150)
     @Column(name = "descripcion", length = 150)
     private String descripcion;
@@ -47,15 +47,15 @@ public class Paquete implements Serializable {
     public Paquete() {
     }
 
-    public Paquete(Short idpaquete) {
+    public Paquete(Long idpaquete) {
         this.idpaquete = idpaquete;
     }
 
-    public Short getIdpaquete() {
+    public Long getIdpaquete() {
         return idpaquete;
     }
 
-    public void setIdpaquete(Short idpaquete) {
+    public void setIdpaquete(Long idpaquete) {
         this.idpaquete = idpaquete;
     }
 
